@@ -24,33 +24,25 @@ function isValidEamail(email) {
     return re.test(String(email).toLowerCase());
 }
 
+//Check Required fields
+function checkRequired(inputArr){
+    inputArr.forEach(function(input){
+        if(input.value.trim() === '') {
+            showError(input, `${getFieldName(input)} is required`);
+        }else{
+            showSuccess(input);
+        }
+    });
+}
+
+//Get FieldName
+function getFieldName(input){
+    return input.id.charAt(0).toUpperCase() + input.id.slice(1);
+}
+
 //Event Listeners
 form.addEventListener('submit', function(e){
     e.preventDefault();
     
-    if(username.value === '') {
-     showError(username, 'You mother fucker!');
-    } else{
-        showSuccess(username);
-    }
-
-    if(email.value === '') {
-        showError(email, 'Add a fucking email!');
-    }else if(!isValidEamail(email.value)){
-        showError(email, 'Add a valid email hoe!');
-    }else{
-        showSuccess(email);
-    }
-
-    if(password.value === '') {
-    showError(password, 'Secure your account bitch!');
-    } else{
-        showSuccess(password);
-    }
-
-    if(password2.value === '') {
-    showError(password2, 'Now make them match fool!');
-    } else{
-        showSuccess(password2);
-    }
+    checkRequired([username,email,password,password2]);
 });
